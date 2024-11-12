@@ -1,0 +1,30 @@
+import DocsCard from "@/components/docs/card";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+
+export default function Docs() {
+  return (
+    <div className="flex flex-col items-center mt-16 space-y-6">
+      <div className="flex flex-col items-center">
+        <Image
+          src="/logo.webp"
+          alt="WishTree Logo"
+          width={150}
+          height={150}
+          className="rounded-full shadow-lg mb-4"
+        />
+      </div>
+
+      <div className="text-center max-w-md">
+        <h1 className="text-4xl font-extrabold text-gray-800 mb-3">WishTree</h1>
+        <p className="text-lg text-gray-600">
+          An easy-to-use Secret Santa organizer for families of any size!
+        </p>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <DocsCard title="How does it work?" description="Quick instruction on how to use the tool!" content={<div><Button>Go</Button></div> }/>
+        <DocsCard title="Which Techstack is used?" description="Documentation of the detailled projects techstack" content={<div><Button>Go</Button></div> }/>
+      </div>
+    </div>
+  );
+}
