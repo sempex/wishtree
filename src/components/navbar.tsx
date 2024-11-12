@@ -17,6 +17,7 @@ import {
 import { Button } from "./ui/button";
 import Avatar from "boring-avatars";
 import { redirect } from "next/navigation";
+import NavbarClient from "./ui/navbar-client";
 export async function Navbar() {
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
@@ -44,10 +45,7 @@ export async function Navbar() {
       </NavigationMenuList>
       <NavigationMenuList>
         {!user.data.user ? (
-          <NavigationMenuItem className="flex gap-3">
-            <Button onClick={() => redirect("/login")}>Log In</Button>
-            <Button onClick={() => redirect("/signup")}>Sign Up</Button>
-          </NavigationMenuItem>
+          <NavbarClient />
         ) : (
           <NavigationMenuItem className="flex items-center">
             <NavigationMenuTrigger className="">
