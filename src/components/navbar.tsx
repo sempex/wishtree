@@ -1,22 +1,25 @@
-"use client";
-
 import * as React from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/server";
 
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
-
-export function Navbar() {
-  const router = useRouter();
+import Avatar from "boring-avatars";
+import { redirect } from "next/navigation";
+export async function Navbar() {
+  const supabase = await createClient();
+  const user = await supabase.auth.getUser();
 
   return (
     <NavigationMenu className="m-4">
@@ -40,10 +43,21 @@ export function Navbar() {
         </NavigationMenuItem>
       </NavigationMenuList>
       <NavigationMenuList>
-        <NavigationMenuItem className="flex gap-3">
-          <Button onClick={() => router.push("/login")}>Log In</Button>
-          <Button onClick={() => router.push("/signup")}>Sign Up</Button>
-        </NavigationMenuItem>
+        {!user.data.user ? (
+          <NavigationMenuItem className="flex gap-3">
+            <Button onClick={() => redirect("/login")}>Log In</Button>
+            <Button onClick={() => redirect("/signup")}>Sign Up</Button>
+          </NavigationMenuItem>
+        ) : (
+          <NavigationMenuItem className="flex items-center">
+            <NavigationMenuTrigger className="">
+              <Avatar name={user.data.user.email} width={40} height={40} />
+            </NavigationMenuTrigger>
+            <NavigationMenuContent className="">
+              <Button>Sign Out</Button>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );
