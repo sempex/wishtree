@@ -19,9 +19,9 @@ export function Navbar() {
   const router = useRouter();
 
   return (
-    <NavigationMenu className="w-full">
+    <NavigationMenu className="m-4">
       <NavigationMenuList>
-        <NavigationMenuItem className="m-3">
+        <NavigationMenuItem className="flex gap-2 items-center">
           <Image
             src="/logo.webp"
             alt="shadcn/ui"
@@ -38,7 +38,9 @@ export function Navbar() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        <NavigationMenuItem>
+      </NavigationMenuList>
+      <NavigationMenuList>
+        <NavigationMenuItem className="flex gap-3">
           <Button onClick={() => router.push("/login")}>Log In</Button>
           <Button onClick={() => router.push("/signup")}>Sign Up</Button>
         </NavigationMenuItem>
