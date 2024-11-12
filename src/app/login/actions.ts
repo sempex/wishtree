@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
+import prisma from '@/lib/prisma'
 
 export async function login(formData: FormData) {
   const supabase = await createClient()
@@ -35,12 +36,21 @@ export async function signup(formData: FormData) {
     password: formData.get('password') as string,
   }
 
-  const { error } = await supabase.auth.signUp(data)
+  const user = await supabase.auth.signUp(data)
 
-  if (error) {
-    console.log(error)
+  if (user.error) {
+    console.log(user.error)
     redirect('/error')
   }
+  if (user.data?.user?.id && user.data.user.email) {
+  await prisma.user.create({
+    data: {
+      id: user.data?.user?.id,
+      email: user.data.user?.email,
+      username: formData.get('username') as string,
+    }
+  })
+}
 
   revalidatePath('/', 'layout')
   redirect('/')

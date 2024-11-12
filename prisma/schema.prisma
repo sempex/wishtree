@@ -15,59 +15,59 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  username   String      @unique
-  email      String      @unique
-  createdAt  DateTime    @default(now())
-  
+  id        String   @unique @id
+  username  String   @unique
+  email     String   @unique
+  createdAt DateTime @default(now())
+
   // Beziehungen
-  families   UserFamily[]  // Verknüpfungstabelle zu Family
-  wishLists  WishList[]    // Wunschlisten des Benutzers in verschiedenen Familien
+  families  UserFamily[] // Verknüpfungstabelle zu Family
+  wishLists WishList[] // Wunschlisten des Benutzers in verschiedenen Familien
 }
 
 model Family {
-  id         Int         @id @default(autoincrement())
-  name       String
-  createdAt  DateTime    @default(now())
-  
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+
   // Beziehungen
-  members    UserFamily[]  // Verknüpfungstabelle zu User
-  wishLists  WishList[]    // Wunschlisten der Familienmitglieder
+  members   UserFamily[] // Verknüpfungstabelle zu User
+  wishLists WishList[] // Wunschlisten der Familienmitglieder
 }
 
 model UserFamily {
-  id         Int      @id @default(autoincrement())
-  userId     Int
-  familyId   Int
-  joinedAt   DateTime @default(now())
-  
+  id       Int      @id @default(autoincrement())
+  userId   String
+  familyId Int
+  joinedAt DateTime @default(now())
+
   // Beziehungen
-  user       User     @relation(fields: [userId], references: [id])
-  family     Family   @relation(fields: [familyId], references: [id])
-  
+  user   User   @relation(fields: [userId], references: [id])
+  family Family @relation(fields: [familyId], references: [id])
+
   @@unique([userId, familyId]) // Ein Benutzer kann nur einmal pro Familie Mitglied sein
 }
 
 model WishList {
-  id         Int      @id @default(autoincrement())
-  userId     Int      // Der Besitzer der Wunschliste
-  familyId   Int      // Die Familie, zu der die Wunschliste gehört
-  createdAt  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  userId    String // Der Besitzer der Wunschliste
+  familyId  Int // Die Familie, zu der die Wunschliste gehört
+  createdAt DateTime @default(now())
 
   // Beziehungen
-  user       User     @relation(fields: [userId], references: [id])
-  family     Family   @relation(fields: [familyId], references: [id])
-  wishes     Wish[]   // Die individuellen Wünsche
-  
+  user   User   @relation(fields: [userId], references: [id])
+  family Family @relation(fields: [familyId], references: [id])
+  wishes Wish[] // Die individuellen Wünsche
+
   @@unique([userId, familyId]) // Eine Wunschliste pro Benutzer und Familie
 }
 
 model Wish {
-  id          Int      @id @default(autoincrement())
-  wishListId  Int      // Die zugehörige Wunschliste
-  content     String   // Der eigentliche Wunschtext
-  createdAt   DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  wishListId Int // Die zugehörige Wunschliste
+  content    String // Der eigentliche Wunschtext
+  createdAt  DateTime @default(now())
 
   // Beziehung
-  wishList    WishList @relation(fields: [wishListId], references: [id])
+  wishList WishList @relation(fields: [wishListId], references: [id])
 }
