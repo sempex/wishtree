@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
 import Avatar from "boring-avatars";
-import { redirect } from "next/navigation";
 import NavbarClient from "./ui/navbar-client";
 export async function Navbar() {
   const supabase = await createClient();
