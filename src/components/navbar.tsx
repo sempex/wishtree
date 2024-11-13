@@ -6,23 +6,12 @@ import { cn } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Button } from "./ui/button";
-import Avatar from "boring-avatars";
 import NavbarClient from "./ui/navbar-client";
 export async function Navbar() {
   const supabase = await createClient();
