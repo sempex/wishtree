@@ -6,12 +6,19 @@ import { cn } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
 
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
@@ -22,41 +29,52 @@ export async function Navbar() {
   const user = await supabase.auth.getUser();
 
   return (
-    <NavigationMenu className="m-4">
-      <NavigationMenuList>
-        <NavigationMenuItem className="flex gap-2 items-center">
-          <Image
-            src="/logo.webp"
-            alt="shadcn/ui"
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-          <a className="font-bold">WishTree</a>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-      <NavigationMenuList>
+    <div className="flex justify-between w-full p-4">
+      <NavigationMenu className="m-4">
+        <NavigationMenuList>
+          <NavigationMenuItem className="flex gap-2 items-center">
+            <Image
+              src="/logo.webp"
+              alt="shadcn/ui"
+              width={50}
+              height={50}
+              className="rounded-full"
+            />
+            <a className="font-bold">WishTree</a>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Documentation
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+      <div>
         {!user.data.user ? (
           <NavbarClient />
         ) : (
-          <NavigationMenuItem className="flex items-center">
-            <NavigationMenuTrigger className="">
-              <Avatar name={user.data.user.email} width={40} height={40} />
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="">
-              <Button>Sign Out</Button>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar name={user.data.user.email} width={40} height={40} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Team</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Button>Sign Out</Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
         )}
-      </NavigationMenuList>
-    </NavigationMenu>
+      </div>
+    </div>
   );
 }
 
