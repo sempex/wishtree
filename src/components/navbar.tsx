@@ -29,8 +29,8 @@ export async function Navbar() {
   const user = await supabase.auth.getUser();
 
   return (
-    <div className="flex justify-between w-full p-4">
-      <NavigationMenu className="m-4">
+    <div className="flex justify-between w-full px-14 py-4">
+      <NavigationMenu className="">
         <NavigationMenuList>
           <NavigationMenuItem className="flex gap-2 items-center">
             <Image
@@ -52,27 +52,7 @@ export async function Navbar() {
         </NavigationMenuList>
       </NavigationMenu>
       <div>
-        {!user.data.user ? (
-          <NavbarClient />
-        ) : (
-          <>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar name={user.data.user.email} width={40} height={40} />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Button>Sign Out</Button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
-        )}
+        <NavbarClient user={user.data.user} />
       </div>
     </div>
   );
