@@ -16,6 +16,10 @@ export const FormSchemaLogin = z.object({
 export default function LoginPage() {
   const form = useForm<z.infer<typeof FormSchemaLogin>>({
     resolver: zodResolver(FormSchemaLogin),
+    defaultValues: {
+      email: '',
+      password: '',
+    }
   })
 
   function onSubmit(values: z.infer<typeof FormSchemaLogin>) {
