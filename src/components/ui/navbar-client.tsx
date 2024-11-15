@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import Avatar from "boring-avatars";
 import { User } from "@supabase/supabase-js";
 import { signOut } from "@/utils/supabase/actions";
+import Link from "next/link";
 
 export default function NavbarClient({ user }: { user: User | null }) {
   const router = useRouter();
@@ -27,7 +28,9 @@ export default function NavbarClient({ user }: { user: User | null }) {
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <Link href="/dashboard" passHref>
+                <DropdownMenuItem>Dashboard</DropdownMenuItem>
+              </Link>
               <DropdownMenuItem>Billing</DropdownMenuItem>
               <DropdownMenuItem>Team</DropdownMenuItem>
               <DropdownMenuItem>

@@ -5,16 +5,21 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import prisma from '@/lib/prisma'
+import { FormSchemaLogin } from '@/app/login/page'
+import { FormSchemaSignUp } from '@/app/signup/page'
+import { z } from 'zod'
 
-export async function login(formData: FormData) {
+export async function login(values: z.infer<typeof FormSchemaLogin>) {
   const supabase = await createClient()
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+    email: values.email,
+    password: values.password,
   }
+
+  console.log(data)
 
   const { error } = await supabase.auth.signInWithPassword(data)
 
@@ -26,14 +31,14 @@ export async function login(formData: FormData) {
   redirect('/')
 }
 
-export async function signup(formData: FormData) {
+export async function signup(values: z.infer<typeof FormSchemaSignUp>) {
   const supabase = await createClient()
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+    email: values.email,
+    password: values.password,
   }
 
   const user = await supabase.auth.signUp(data)
@@ -47,7 +52,7 @@ export async function signup(formData: FormData) {
     data: {
       id: user.data?.user?.id,
       email: user.data.user?.email,
-      username: formData.get('username') as string,
+      username: values.username,
     }
   })
 }
