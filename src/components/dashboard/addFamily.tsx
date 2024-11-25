@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { addFamily } from "./actions";
+
 
 export default function AddFamily() {
   const [familyName, setFamilyName] = useState("");
@@ -39,7 +41,7 @@ export default function AddFamily() {
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
-          <Button>Create</Button>
+          <Button onClick={() => addFamily(familyName)}>Create</Button>
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Close
