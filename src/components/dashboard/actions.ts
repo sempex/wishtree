@@ -30,4 +30,16 @@ async function addFamily(familyName: string) {
     }
   }
 
-  export { addFamily };
+async function getFamilys() {
+    const supabase = await createClient();
+    const user = await supabase.auth.getUser();
+
+    const familys = await prisma.userFamily.findMany({
+        where: { userId: user.data.user?.id },
+        include: { family: true },
+    })
+
+    return familys
+}
+
+  export { addFamily, getFamilys };

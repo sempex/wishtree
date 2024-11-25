@@ -26,7 +26,7 @@ model User {
 }
 
 model Family {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   name      String
   createdAt DateTime @default(now())
 
@@ -36,9 +36,9 @@ model Family {
 }
 
 model UserFamily {
-  id       Int      @id @default(autoincrement())
+  id       String      @id @default(uuid())
   userId   String
-  familyId Int
+  familyId String
   joinedAt DateTime @default(now())
 
   // Beziehungen
@@ -51,7 +51,7 @@ model UserFamily {
 model WishList {
   id        Int      @id @default(autoincrement())
   userId    String // Der Besitzer der Wunschliste
-  familyId  Int // Die Familie, zu der die Wunschliste gehört
+  familyId  String // Die Familie, zu der die Wunschliste gehört
   createdAt DateTime @default(now())
 
   // Beziehungen
