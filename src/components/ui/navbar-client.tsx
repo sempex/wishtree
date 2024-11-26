@@ -31,8 +31,6 @@ export default function NavbarClient({ user }: { user: User | null }) {
               <Link href="/dashboard" passHref>
                 <DropdownMenuItem>Dashboard</DropdownMenuItem>
               </Link>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
               <DropdownMenuItem>
                 <Button onClick={() => signOut()}>Sign Out</Button>
               </DropdownMenuItem>
