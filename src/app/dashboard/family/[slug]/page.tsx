@@ -1,4 +1,5 @@
 import { getFamily } from "@/components/dashboard/family/actions";
+import AddMember from "@/components/dashboard/family/add-member";
 import MemberCard from "@/components/dashboard/family/member-card";
 import { Button } from "@/components/ui/button";
 
@@ -9,9 +10,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="px-4">
       <div className="flex justify-between">
-        <p className="font-bold text-xl">{family?.name.toLocaleUpperCase()}</p>
+        <p className="font-bold text-2xl">{family?.name.toLocaleUpperCase()}</p>
         <div className="flex gap-2">
-          <Button>Add Member</Button>
+          <AddMember />
           <Button>Share Link</Button>
         </div>
       </div>

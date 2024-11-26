@@ -22,13 +22,15 @@ export async function Navbar() {
       <NavigationMenu className="">
         <NavigationMenuList>
           <NavigationMenuItem className="flex gap-2 items-center">
-            <Image
-              src="/logo.webp"
-              alt="shadcn/ui"
-              width={50}
-              height={50}
-              className="rounded-full"
-            />
+            <Link href="/">
+              <Image
+                src="/logo.webp"
+                alt="shadcn/ui"
+                width={50}
+                height={50}
+                className="rounded-full"
+              />
+            </Link>
             <a className="font-bold">WishTree</a>
           </NavigationMenuItem>
           <NavigationMenuItem>

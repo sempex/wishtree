@@ -19,7 +19,7 @@ export default async function familyCard() {
               <CardHeader className="h-24">
                 <CardTitle>{family.family.name.toLocaleUpperCase()}</CardTitle>
                 <CardDescription>
-                  Created at {family.family.createdAt.toLocaleDateString()}
+                  Created on {family.family.createdAt.toLocaleDateString()}
                 </CardDescription>
               </CardHeader>
             </Card>
