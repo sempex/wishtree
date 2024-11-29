@@ -15,34 +15,35 @@ datasource db {
 }
 
 model User {
-  id        String   @unique @id
+  id        String   @id @unique
   username  String   @unique
   email     String   @unique
   createdAt DateTime @default(now())
 
   // Beziehungen
-  families  UserFamily[] // Verknüpfungstabelle zu Family
+  families  Member[] // Verknüpfungstabelle zu Family
   wishLists WishList[] // Wunschlisten des Benutzers in verschiedenen Familien
 }
 
 model Family {
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())
 
   // Beziehungen
-  members   UserFamily[] // Verknüpfungstabelle zu User
+  members   Member[] // Verknüpfungstabelle zu User
   wishLists WishList[] // Wunschlisten der Familienmitglieder
 }
 
-model UserFamily {
-  id       String      @id @default(uuid())
-  userId   String
+model Member {
+  id       String   @id @default(uuid())
+  userId   String?
+  name     String
   familyId String
   joinedAt DateTime @default(now())
 
   // Beziehungen
-  user   User   @relation(fields: [userId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id])
   family Family @relation(fields: [familyId], references: [id])
 
   @@unique([userId, familyId]) // Ein Benutzer kann nur einmal pro Familie Mitglied sein

@@ -5,9 +5,9 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import prisma from '@/lib/prisma'
-import { FormSchemaLogin } from '@/app/login/page'
-import { FormSchemaSignUp } from '@/app/signup/page'
+
 import { z } from 'zod'
+import { FormSchemaLogin, FormSchemaSignUp } from '../schema'
 
 export async function login(values: z.infer<typeof FormSchemaLogin>) {
   const supabase = await createClient()

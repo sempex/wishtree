@@ -6,13 +6,7 @@ import { useForm } from "react-hook-form"
 import { Form, FormItem, FormLabel, FormControl, FormField, FormDescription, FormMessage } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-
-export const FormSchemaSignUp = z.object({
-    email: z.string().email(),
-    username: z.string().min(3).max(12),
-    password: z.string().min(8).max(100),
-})
-
+import { FormSchemaSignUp } from '@/utils/schema'
 
 export default function LoginPage() {
     const form = useForm<z.infer<typeof FormSchemaSignUp>>({

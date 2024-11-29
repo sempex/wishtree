@@ -7,9 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default async function familyCard() {
+export default async function FamilyCard() {
   const familys = await getFamilys();
-  console.log(familys);
   return (
     <div>
       {familys.map((family) => {

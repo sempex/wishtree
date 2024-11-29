@@ -13,14 +13,20 @@ async function addFamily(familyName: string) {
 
   try {
     await prisma.$transaction(async (prisma) => {
-      const family = await prisma.family.create({
-        data: { name: familyName },
+      const username = await prisma.user.findUnique({
+        where: { id: user.data.user?.id },
+        select: { username: true },
       });
 
-      await prisma.userFamily.create({
+      await prisma.family.create({
         data: {
-          familyId: family.id,
-          userId: user.data.user?.id || "",
+          name: familyName,
+          members: {
+            create: {
+              userId: user.data.user?.id,
+              name: username?.username ?? "Unknown",
+            },
+          },
         },
       });
     });
@@ -34,9 +40,9 @@ async function getFamilys() {
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
 
-  const familys = await prisma.userFamily.findMany({
+  const familys = await prisma.member.findMany({
     where: { userId: user.data.user?.id },
-    include: { family: true},
+    include: { family: true },
   });
 
   return familys;

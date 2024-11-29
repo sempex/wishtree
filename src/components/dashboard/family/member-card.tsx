@@ -7,8 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { User } from "@prisma/client";
 import Avatar from "boring-avatars";
+
+type User = {
+  id: string;
+  email?: string;
+  username: string;
+  userId?: string
+}
 
 export default function MemberCard({ members, memberCount }: { members: User[], memberCount: number }) {
   return (
@@ -21,9 +27,9 @@ export default function MemberCard({ members, memberCount }: { members: User[], 
         <div className="grid grid-cols-4">
           {members.map((member) => {
             return (
-              <div key={member.id} className="flex flex-col items-center">
+              <div key={member.username} className="flex flex-col items-center">
                 <Avatar
-                  name={member.email}
+                  name={member.userId ? member.userId : member.id}
                   height={40}
                   width={40}
                 />

@@ -23,7 +23,7 @@ export default function NavbarClient({ user }: { user: User | null }) {
         <>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar name={user.email} width={40} height={40} />
+              <Avatar name={user.id} width={40} height={40} />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -15,4 +15,14 @@ async function getFamily(familyID: string) {
     return family;
 }
 
-export { getFamily };
+async function addMember(familyID: string, username: string, userId?: string) {
+    await prisma.member.create({
+        data: {
+            familyId: familyID,
+            name: username,
+            userId: userId,
+        },
+    })
+}
+
+export { getFamily, addMember };

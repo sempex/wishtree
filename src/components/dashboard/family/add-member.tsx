@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,11 +11,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { addMember } from "./actions";
+import { useState } from "react";
 
-export default function AddMember() {
+export default function AddMember({slug}: {slug: string}) {
+  const [mem, addMem] = useState<string>("")
+
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button>Add Member</Button>
       </DialogTrigger>
       <DialogContent>
@@ -27,11 +32,11 @@ export default function AddMember() {
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
-            <Input id="familyName" placeholder="john.doe@gmail.com" />
+            <Input id="familyName" placeholder="Tim" onChange={(e) => addMem(e.target.value)} />
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
-          <Button>Invite member</Button>
+          <Button onClick={() => addMember(slug, mem)}>Add member</Button>
           <DialogClose asChild>
             <Button type="button" variant="secondary">Close</Button>
           </DialogClose>
