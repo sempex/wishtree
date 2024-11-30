@@ -24,13 +24,13 @@ export default async function Page({
     <div className="flex justify-center items-center">
       <Card>
         <CardHeader>
-          <CardTitle>Select your Member</CardTitle>
+          <CardTitle>Who are you?</CardTitle>
           <CardDescription>
             Select which of the following persons you are!
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+        <CardContent className="">
+          <ScrollArea className="flex h-[400px] w-[700px] rounded-md border p-4">
             {family?.members.map((member) => {
               return <Member key={member.id} name={member.name} id={member.id} />;
             })}
