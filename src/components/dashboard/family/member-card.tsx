@@ -14,13 +14,13 @@ import Avatar from "boring-avatars";
 
 export default function MemberCard({ members, memberCount }: { members: User[], memberCount: number }) {
   return (
-    <Card>
+    <Card className="w-1/4">
       <CardHeader>
         <CardTitle>Members</CardTitle>
         <CardDescription>See who joined the family already</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-6">
           {members.map((member) => {
             return (
               <div key={member.username} className="flex flex-col items-center">

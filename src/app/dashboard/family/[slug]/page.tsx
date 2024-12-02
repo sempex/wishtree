@@ -1,5 +1,6 @@
 import { getFamily } from "@/components/dashboard/family/actions";
 import AddMember from "@/components/dashboard/family/add-member";
+import ControlCenter from "@/components/dashboard/family/control-center";
 import MemberCard from "@/components/dashboard/family/member-card";
 import { ShareLink } from "@/components/dashboard/family/share-link";
 
@@ -16,7 +17,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <ShareLink baseUrl={process.env.APP_URL ?? "example.com"} slug={slug} />
         </div>
       </div>
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-between gap-4 mt-4">
+        <ControlCenter />
         <MemberCard
           members={(family?.members?.map((member) => {
             return {
