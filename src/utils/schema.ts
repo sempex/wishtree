@@ -10,3 +10,10 @@ export const FormSchemaSignUp = z.object({
   username: z.string().min(3).max(12),
   password: z.string().min(8).max(100),
 });
+
+export type User = {
+  id: string;
+  email?: string;
+  username: string;
+  userId?: string
+}

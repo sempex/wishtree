@@ -1,5 +1,5 @@
 import { getFamily } from "@/components/dashboard/family/actions";
-import Member from "@/components/family/join/member";
+import MemberField from "@/components/family/join/member-field";
 import {
   Card,
   CardContent,
@@ -7,8 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default async function Page({
   params,
@@ -30,11 +28,22 @@ export default async function Page({
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <ScrollArea className="flex h-[400px] w-[700px] rounded-md border p-4">
-            {family?.members.map((member) => {
-              return <Member key={member.id} name={member.name} id={member.id} />;
-            })}
-          </ScrollArea>
+          {/* {family?.members.map((member) => {
+            return <Member key={member.id} name={member.name} id={member.id} />;
+          })} */}
+          
+          <MemberField
+            members={
+              family?.members?.map((member) => {
+                return {
+                  id: member.id,
+                  username: member.name,
+                  email: member.user?.email,
+                  userId: member.user?.id,
+                };
+              }) || []
+            }
+          />
         </CardContent>
       </Card>
     </div>

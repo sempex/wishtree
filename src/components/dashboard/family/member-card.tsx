@@ -7,14 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { User } from "@/utils/schema";
 import Avatar from "boring-avatars";
 
-type User = {
-  id: string;
-  email?: string;
-  username: string;
-  userId?: string
-}
+
 
 export default function MemberCard({ members, memberCount }: { members: User[], memberCount: number }) {
   return (
