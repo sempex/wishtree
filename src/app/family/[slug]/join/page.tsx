@@ -40,6 +40,7 @@ export default async function Page({
                   username: member.name,
                   email: member.user?.email,
                   userId: member.user?.id,
+                  hasSubmitted: member.hasSubmitted,
                 };
               }) || []
             }
