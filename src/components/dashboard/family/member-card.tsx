@@ -14,7 +14,7 @@ import Avatar from "boring-avatars";
 
 export default function MemberCard({ members, memberCount }: { members: User[], memberCount: number }) {
   return (
-    <Card className="w-1/4">
+    <Card>
       <CardHeader>
         <CardTitle>Members</CardTitle>
         <CardDescription>See who joined the family already</CardDescription>

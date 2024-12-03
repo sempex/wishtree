@@ -7,32 +7,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import DatePicker from "./datepicker";
 
 export default function ControlCenter() {
   return (
-    <Card className="flex justify-center items-center">
-      <div className="grid grid-cols-4 gap-4">
-        <Card className="col-span-2">
-          <CardHeader>
-            <CardTitle>Control center</CardTitle>
-            <CardDescription>
-              Manage your secret Santa family here!
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button>Draw now!</Button>
-          </CardContent>
-        </Card>
-        <Card className="">
-          <CardHeader>
-            <CardTitle>Status Page</CardTitle>
-            <CardDescription>
-              Check whether everyone has submitted their wishes!
-            </CardDescription>
-          </CardHeader>
-          <CardContent></CardContent>
-        </Card>
-      </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Control center</CardTitle>
+        <CardDescription>Manage your secret Santa family here!</CardDescription>
+      </CardHeader>
+      <CardContent className="">
+        <div className="flex flex-col gap-1">
+          <p className="font-semibold">Wish submission ending:</p>
+          <DatePicker />
+          <p className="font-semibold">Trigger the draw now!</p>
+          <Button className="w-[280px]">Draw now!</Button>
+        </div>
+      </CardContent>
     </Card>
   );
 }

@@ -29,6 +29,7 @@ model Family {
   id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())
+  dueDate   DateTime?
 
   // Beziehungen
   members   Member[] // Verknüpfungstabelle zu User
