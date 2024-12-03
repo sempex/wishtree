@@ -16,4 +16,5 @@ export type User = {
   email?: string;
   username: string;
   userId?: string
+  hasSubmitted: boolean;
 }

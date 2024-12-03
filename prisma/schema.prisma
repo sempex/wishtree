@@ -21,14 +21,13 @@ model User {
   createdAt DateTime @default(now())
 
   // Beziehungen
-  families  Member[] // Verknüpfungstabelle zu Family
-  wishLists WishList[] // Wunschlisten des Benutzers in verschiedenen Familien
+  families Member[] // Verknüpfungstabelle zu Family
 }
 
 model Family {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   dueDate   DateTime?
 
   // Beziehungen
@@ -42,26 +41,28 @@ model Member {
   name     String
   familyId String
   joinedAt DateTime @default(now())
+  hasSubmitted Boolean @default(false)
 
   // Beziehungen
-  user   User?  @relation(fields: [userId], references: [id])
-  family Family @relation(fields: [familyId], references: [id])
+  wishLists WishList[] // Wunschlisten des Benutzers in verschiedenen Familien
+  user      User?      @relation(fields: [userId], references: [id])
+  family    Family     @relation(fields: [familyId], references: [id])
 
   @@unique([userId, familyId]) // Ein Benutzer kann nur einmal pro Familie Mitglied sein
 }
 
 model WishList {
   id        Int      @id @default(autoincrement())
-  userId    String // Der Besitzer der Wunschliste
   familyId  String // Die Familie, zu der die Wunschliste gehört
   createdAt DateTime @default(now())
 
   // Beziehungen
-  user   User   @relation(fields: [userId], references: [id])
-  family Family @relation(fields: [familyId], references: [id])
-  wishes Wish[] // Die individuellen Wünsche
+  family   Family  @relation(fields: [familyId], references: [id])
+  wishes   Wish[] // Die individuellen Wünsche
+  Member   Member  @relation(fields: [memberId], references: [id])
+  memberId String
 
-  @@unique([userId, familyId]) // Eine Wunschliste pro Benutzer und Familie
+  @@unique([memberId, familyId]) // Eine Wunschliste pro Benutzer und Familie
 }
 
 model Wish {
