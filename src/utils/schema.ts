@@ -18,3 +18,8 @@ export type User = {
   userId?: string
   hasSubmitted: boolean;
 }
+
+export interface Assignment {
+  giver: string
+  receiver: string
+}

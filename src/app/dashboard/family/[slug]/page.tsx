@@ -38,7 +38,11 @@ export default async function Page({
       </div>
       <div className="grid grid-cols-4 gap-4 mt-4">
         <div className="col-span-2">
-          <ControlCenter familyId={slug} />
+          <ControlCenter
+            familyId={slug}
+            dueDate={family?.dueDate ?? undefined}
+            members={members}
+          />
         </div>
         <StatusField members={members} />
         <MemberCard
