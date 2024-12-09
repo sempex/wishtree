@@ -26,6 +26,14 @@ async function addWishes(memberId: string, wishes: string[]) {
         },
       });
     });
+    await prisma.member.update({
+      where: {
+        id: memberId,
+      },
+      data: {
+        hasSubmitted: true,
+      },
+    });
   } catch (error) {
     console.error("Error adding wishlist:", error);
     toast("Could not add wishlist. Please try again.");
