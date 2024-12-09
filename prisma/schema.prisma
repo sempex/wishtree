@@ -58,19 +58,9 @@ model WishList {
 
   // Beziehungen
   family   Family  @relation(fields: [familyId], references: [id])
-  wishes   Wish[] // Die individuellen Wünsche
+  wishes   String[] // Die individuellen Wünsche
   Member   Member  @relation(fields: [memberId], references: [id])
   memberId String
 
   @@unique([memberId, familyId]) // Eine Wunschliste pro Benutzer und Familie
-}
-
-model Wish {
-  id         Int      @id @default(autoincrement())
-  wishListId Int // Die zugehörige Wunschliste
-  content    String // Der eigentliche Wunschtext
-  createdAt  DateTime @default(now())
-
-  // Beziehung
-  wishList WishList @relation(fields: [wishListId], references: [id])
 }

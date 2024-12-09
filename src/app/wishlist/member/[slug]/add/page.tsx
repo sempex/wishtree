@@ -1,3 +1,6 @@
+import * as React from "react";
+import WishForm from "./wish-form";
+
 export default async function Page({
   params,
 }: {
@@ -5,5 +8,5 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  return <>{slug}</>;
+  return <WishForm memberId={slug} />;
 }
