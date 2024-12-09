@@ -24,9 +24,19 @@ export default async function Page({
         <CardHeader>
           <CardTitle>Who are you?</CardTitle>
           <CardDescription className="">
-            Select which of the following persons you are! <br/>
-            You have time until <span className="font-bold"> {family?.dueDate?.toDateString()} </span>
-            to submit your wishes!
+            Select which of the following persons you are! <br />
+            {family?.dueDate ? (
+              <a>
+                You have time until{" "}
+                <span className="font-bold">
+                  {" "}
+                  {family?.dueDate?.toDateString()}{" "}
+                </span>
+                to submit your wishes!
+              </a>
+            ) : (
+              <a>The family administrator did not set a due date to submit your wishes!</a>
+            )}
           </CardDescription>
         </CardHeader>
         <CardContent className="">
