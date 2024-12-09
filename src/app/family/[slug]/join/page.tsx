@@ -23,15 +23,17 @@ export default async function Page({
       <Card>
         <CardHeader>
           <CardTitle>Who are you?</CardTitle>
-          <CardDescription>
-            Select which of the following persons you are!
+          <CardDescription className="">
+            Select which of the following persons you are! <br/>
+            You have time until <span className="font-bold"> {family?.dueDate?.toDateString()} </span>
+            to submit your wishes!
           </CardDescription>
         </CardHeader>
         <CardContent className="">
           {/* {family?.members.map((member) => {
             return <Member key={member.id} name={member.name} id={member.id} />;
           })} */}
-          
+
           <MemberField
             members={
               family?.members?.map((member) => {

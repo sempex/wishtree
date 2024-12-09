@@ -12,8 +12,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
+import { setDueDate } from "./actions";
 
-export default function DatePicker() {
+export default function DatePicker({familyId}: {familyId: string}) {
   const [date, setDate] = useState<Date>();
 
   return (
@@ -34,7 +35,10 @@ export default function DatePicker() {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(date) => {
+            setDate(date)
+            setDueDate(familyId, date)
+          }}
           initialFocus
         />
       </PopoverContent>

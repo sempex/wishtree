@@ -20,7 +20,7 @@ export default async function Page({
         username: member.name,
         email: member.user?.email,
         userId: member.user?.id,
-        hasSubmitted: member.hasSubmitted
+        hasSubmitted: member.hasSubmitted,
       };
     }) || [];
 
@@ -38,7 +38,7 @@ export default async function Page({
       </div>
       <div className="grid grid-cols-4 gap-4 mt-4">
         <div className="col-span-2">
-          <ControlCenter />
+          <ControlCenter familyId={slug} />
         </div>
         <StatusField members={members} />
         <MemberCard

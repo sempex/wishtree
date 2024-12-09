@@ -37,4 +37,13 @@ async function memberStatus(memberId: string, familyId: string) {
   return wishlist;
 }
 
-export { getFamily, addMember, memberStatus };
+async function setDueDate(familyId: string, Date?: Date) {
+  await prisma.family.update({
+    where: { id: familyId },
+    data: {
+      dueDate: Date
+    }
+  })
+}
+
+export { getFamily, addMember, memberStatus, setDueDate };

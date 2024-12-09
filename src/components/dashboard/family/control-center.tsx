@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/card";
 import DatePicker from "./datepicker";
 
-export default function ControlCenter() {
+
+export default function ControlCenter({familyId}: {familyId: string}) {
   return (
     <Card>
       <CardHeader>
@@ -19,7 +20,7 @@ export default function ControlCenter() {
       <CardContent className="">
         <div className="flex flex-col gap-1">
           <p className="font-semibold">Wish submission ending:</p>
-          <DatePicker />
+          <DatePicker familyId={familyId} />
           <p className="font-semibold">Trigger the draw now!</p>
           <Button className="w-[280px]">Draw now!</Button>
         </div>

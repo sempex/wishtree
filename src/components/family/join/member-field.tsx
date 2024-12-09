@@ -34,21 +34,21 @@ export default function MemberField({ members }: { members: User[] }) {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between"
+            className="w-[300px] justify-between"
           >
             {user
               ? members.find((member) => member.username === user)?.username
-              : "Select user..."}
+              : "Select member..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <Link href={`/wishlist/member/${userId}/add`}>
-          <Button className="w-[200px]">Continue</Button>
+          <Button className="w-[300px]">Continue</Button>
         </Link>
       </div>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[300px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder="Search members..." />
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
