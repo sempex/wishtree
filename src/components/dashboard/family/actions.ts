@@ -129,11 +129,11 @@ async function draw(members: User[], familyId: string) {
         username: familyMember.member.name,
         wishes: wishes?.wishes || [],
         mail:
-          (familyMember.member.email ?? familyMember.user?.email) || "unknown",
+          (familyMember.member.email
+            ? familyMember.member.email
+            : familyMember.user?.email) || "unknown",
       };
-      console.log(mailInfo)
-      console.log(familyMember.user?.email)
-      // sendMail(mailInfo);
+      sendMail(mailInfo);
     } catch (error) {
       console.error("Failed to draw secret Santa assignments", error);
     }
