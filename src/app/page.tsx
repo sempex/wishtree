@@ -22,10 +22,10 @@ export default function Docs() {
         />
       </div>
 
-      <div className="text-center max-w-md">
+      <div className="text-center m-4">
         <ChristmasCountdown />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
         <DocsCard
           title="How does it work?"
           description="Quick instruction on how to use the tool!"
