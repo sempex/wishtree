@@ -111,6 +111,7 @@ async function draw(members: User[], familyId: string) {
         include: {
           member: true,
           giver: true,
+          user: true,
         },
       });
 
@@ -127,10 +128,12 @@ async function draw(members: User[], familyId: string) {
         giver: familyMember.giver?.name || "unknown",
         username: familyMember.member.name,
         wishes: wishes?.wishes || [],
-        mail: "tim.reber@bluewin.ch",
+        mail:
+          (familyMember.member.email ?? familyMember.user?.email) || "unknown",
       };
-
-      sendMail(mailInfo);
+      console.log(mailInfo)
+      console.log(familyMember.user?.email)
+      // sendMail(mailInfo);
     } catch (error) {
       console.error("Failed to draw secret Santa assignments", error);
     }
@@ -160,4 +163,12 @@ async function sendMail({ giver, username, wishes, mail }: DrawEmailProps) {
 
   console.log({ data });
 }
-export { getFamily, addMember, memberStatus, setDueDate, draw, sendMail, getMember };
+export {
+  getFamily,
+  addMember,
+  memberStatus,
+  setDueDate,
+  draw,
+  sendMail,
+  getMember,
+};
