@@ -1,22 +1,14 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { toast } from "sonner";
 
-async function addWishes(memberId: string, wishes: string[]) {
+async function addWishes(memberId: string, wishes: string[], familyId: string) {
+  console.log(memberId);
   try {
     await prisma.$transaction(async (prisma) => {
-      const family = await prisma.familyMember.findFirst({
-        where: {
-          memberId: memberId,
-        },
-        select: {
-          familyId: true,
-        },
-      });
       await prisma.wishList.create({
         data: {
-          familyId: family?.familyId || "",
+          familyId: familyId || "",
           memberId: memberId,
           wishes: wishes,
         },
@@ -24,7 +16,7 @@ async function addWishes(memberId: string, wishes: string[]) {
       await prisma.familyMember.update({
         where: {
           memberId_familyId: {
-            familyId: family?.familyId || "",
+            familyId: familyId || "",
             memberId: memberId,
           },
         },
@@ -35,7 +27,6 @@ async function addWishes(memberId: string, wishes: string[]) {
     });
   } catch (error) {
     console.error("Error adding wishlist:", error);
-    toast("Could not add wishlist. Please try again.");
   }
 }
 

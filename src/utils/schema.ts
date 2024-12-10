@@ -15,11 +15,18 @@ export type User = {
   id: string;
   email?: string;
   username: string;
-  userId?: string
+  userId?: string;
   hasSubmitted: boolean;
-}
+};
 
 export interface Assignment {
-  giver: string
-  receiver: string
+  giver: string;
+  receiver: string;
+}
+
+export interface DrawEmailProps {
+  username: string;
+  giver: string;
+  wishes: string[];
+  mail: string;
 }

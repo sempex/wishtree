@@ -1,6 +1,9 @@
 "use server";
+import DrawEmail from "@/components/emails/draw";
 import prisma from "@/lib/prisma";
-import { Assignment, User } from "@/utils/schema";
+import { Assignment, DrawEmailProps, User } from "@/utils/schema";
+import { Resend } from "resend";
+import { z } from "zod";
 
 async function getFamily(familyID: string) {
   const family = await prisma.family.findUnique({
@@ -82,7 +85,7 @@ async function draw(members: User[], familyId: string) {
   }
   for (const assignment of assignments) {
     try {
-      await prisma.familyMember.update({
+      const familyMember = await prisma.familyMember.update({
         where: {
           memberId_familyId: {
             familyId: familyId,
@@ -96,10 +99,56 @@ async function draw(members: User[], familyId: string) {
             },
           },
         },
+        include: {
+          member: true,
+          giver: true,
+        },
       });
+
+      const wishes = await prisma.wishList.findUnique({
+        where: {
+          memberId_familyId: {
+            familyId: familyId,
+            memberId: assignment.giver,
+          },
+        },
+      });
+
+      const mailInfo: DrawEmailProps = {
+        giver: familyMember.giver?.name || "unknown",
+        username: familyMember.member.name,
+        wishes: wishes?.wishes || [],
+        mail: "tim.reber@bluewin.ch",
+      };
+
+      sendMail(mailInfo);
     } catch (error) {
       console.error("Failed to draw secret Santa assignments", error);
     }
   }
 }
-export { getFamily, addMember, memberStatus, setDueDate, draw };
+
+async function sendMail({ giver, username, wishes, mail }: DrawEmailProps) {
+  const emailSchema = z.string().email();
+  try {
+    emailSchema.parse(mail);
+  } catch (e) {
+    console.error("Invalid email address", e);
+    return;
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const { data, error } = await resend.emails.send({
+    from: process.env.RESEND_EMAIL || "team@timreber.me",
+    to: [mail],
+    subject: "Your Secret Santa assignment",
+    react: DrawEmail({ giver, username, wishes, mail }),
+  });
+
+  if (error) {
+    return console.error({ error });
+  }
+
+  console.log({ data });
+}
+export { getFamily, addMember, memberStatus, setDueDate, draw, sendMail };

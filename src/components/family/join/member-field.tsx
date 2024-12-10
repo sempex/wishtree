@@ -21,7 +21,7 @@ import { useState } from "react";
 import { User } from "@/utils/schema";
 import Link from "next/link";
 
-export default function MemberField({ members }: { members: User[] }) {
+export default function MemberField({ members, familyId }: { members: User[], familyId: string }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState("");
   const [userId, setUserId] = useState("");
@@ -42,7 +42,7 @@ export default function MemberField({ members }: { members: User[] }) {
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <Link href={`/wishlist/member/${userId}/add`}>
+        <Link href={`/wishlist/member/${userId}/${familyId}/add`}>
           <Button className="w-[300px]">Continue</Button>
         </Link>
       </div>

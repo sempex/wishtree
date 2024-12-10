@@ -17,7 +17,13 @@ import { Label } from "@/components/ui/label";
 import { PlusIcon } from "lucide-react";
 import { addWishes } from "./actions";
 
-export default function WishForm({ memberId }: { memberId: string }) {
+export default function WishForm({
+  memberId,
+  familyId,
+}: {
+  memberId: string;
+  familyId: string;
+}) {
   const [wishes, setWishes] = useState<string[]>([""]);
 
   const addWish = () => {
@@ -32,7 +38,7 @@ export default function WishForm({ memberId }: { memberId: string }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addWishes(memberId, wishes);
+    addWishes(memberId, wishes, familyId);
   };
 
   return (

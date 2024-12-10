@@ -33,7 +33,10 @@ export default async function Page({
                 to submit your wishes!
               </a>
             ) : (
-              <a>The family administrator did not set a due date to submit your wishes!</a>
+              <a>
+                The family administrator did not set a due date to submit your
+                wishes!
+              </a>
             )}
           </CardDescription>
         </CardHeader>
@@ -54,6 +57,7 @@ export default async function Page({
                 };
               }) || []
             }
+            familyId={slug}
           />
         </CardContent>
       </Card>
