@@ -2,7 +2,12 @@
 
 import prisma from "@/lib/prisma";
 
-async function addWishes(memberId: string, wishes: string[], familyId: string) {
+async function addWishes(
+  memberId: string,
+  wishes: string[],
+  familyId: string,
+  email: string
+) {
   console.log(memberId);
   try {
     await prisma.$transaction(async (prisma) => {
@@ -24,6 +29,14 @@ async function addWishes(memberId: string, wishes: string[], familyId: string) {
           hasSubmitted: true,
         },
       });
+    });
+    await prisma.member.update({
+      where: {
+        id: memberId,
+      },
+      data: {
+        email: email,
+      },
     });
   } catch (error) {
     console.error("Error adding wishlist:", error);

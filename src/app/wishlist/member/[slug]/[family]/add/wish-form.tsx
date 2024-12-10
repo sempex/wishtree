@@ -20,11 +20,14 @@ import { addWishes } from "./actions";
 export default function WishForm({
   memberId,
   familyId,
+  userMail
 }: {
   memberId: string;
   familyId: string;
+  userMail?: string
 }) {
   const [wishes, setWishes] = useState<string[]>([""]);
+  const [email, setEmail] = useState("");
 
   const addWish = () => {
     setWishes([...wishes, ""]);
@@ -38,21 +41,31 @@ export default function WishForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addWishes(memberId, wishes, familyId);
+    addWishes(memberId, wishes, familyId, email);
   };
 
   return (
-    <div className="flex justify-center items-center p-4">
       <Card className="w-full max-w-2xl">
         <CardHeader>
           <CardTitle>Add your wishes!</CardTitle>
           <CardDescription>
-            Add what you&aposd like to get for Christmas!
+            Add what you&apos;d like to get for Christmas!
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="grid w-full items-center gap-4">
+              <Label className="font-semibold">
+                Email address where you will receive your draw.
+              </Label>
+              <Input
+                placeholder="john.doe@shiper.app"
+                type="email"
+                value={userMail ? userMail : email}
+                readOnly={!!userMail}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
               {wishes.map((wish, index) => (
                 <div key={index} className="flex flex-col space-y-2">
                   <Label className="font-semibold">Wish {index + 1}</Label>
@@ -61,6 +74,7 @@ export default function WishForm({
                       value={wish}
                       onChange={(e) => updateWish(index, e.target.value)}
                       placeholder="Your wish"
+                      required
                     />
                     {index === wishes.length - 1 && (
                       <Button
@@ -81,6 +95,5 @@ export default function WishForm({
           </form>
         </CardContent>
       </Card>
-    </div>
   );
 }

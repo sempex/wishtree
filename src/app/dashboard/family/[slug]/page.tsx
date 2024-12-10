@@ -1,9 +1,11 @@
-import { getFamily } from "@/components/dashboard/family/actions";
+import WishForm from "@/app/wishlist/member/[slug]/[family]/add/wish-form";
+import { getFamily, getMember } from "@/components/dashboard/family/actions";
 import AddMember from "@/components/dashboard/family/add-member";
 import ControlCenter from "@/components/dashboard/family/control-center";
 import MemberCard from "@/components/dashboard/family/member-card";
 import { ShareLink } from "@/components/dashboard/family/share-link";
 import StatusField from "@/components/dashboard/family/status-field";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function Page({
   params,
@@ -12,6 +14,9 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const family = await getFamily(slug);
+  const supabase = await createClient();
+  const user = await supabase.auth.getUser();
+  const member = await getMember(user.data.user?.id ?? "");
 
   const members =
     family?.FamilyMember.map((family) => {
@@ -25,7 +30,7 @@ export default async function Page({
     }) || [];
 
   return (
-    <div className="mx-4">
+    <div className="mx-4 mb-4">
       <div className="flex justify-between items-center">
         <p className="font-bold text-2xl">{family?.name.toLocaleUpperCase()}</p>
         <div className="flex gap-2">
@@ -49,6 +54,7 @@ export default async function Page({
           members={members}
           memberCount={family?.FamilyMember?.length || 0}
         />
+        <WishForm familyId={slug} memberId={member?.id ?? ""} userMail={user.data.user?.email} />
       </div>
     </div>
   );

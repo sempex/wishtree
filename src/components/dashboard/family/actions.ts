@@ -20,6 +20,15 @@ async function getFamily(familyID: string) {
   return family;
 }
 
+async function getMember(userId: string) {
+  const member = await prisma.member.findUnique({
+    where: {
+      userId: userId,
+    },
+  });
+  return member;
+}
+
 async function addMember(familyID: string, username: string, userId?: string) {
   await prisma.$transaction(async (prisma) => {
     const member = await prisma.member.create({
@@ -151,4 +160,4 @@ async function sendMail({ giver, username, wishes, mail }: DrawEmailProps) {
 
   console.log({ data });
 }
-export { getFamily, addMember, memberStatus, setDueDate, draw, sendMail };
+export { getFamily, addMember, memberStatus, setDueDate, draw, sendMail, getMember };
