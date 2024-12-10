@@ -24,7 +24,7 @@ export default function ControlCenter({familyId, dueDate, members}: {familyId: s
           <p className="font-semibold">Wish submission ending:</p>
           <DatePicker familyId={familyId} dueDate={dueDate} />
           <p className="font-semibold">Trigger the draw now!</p>
-          <Button className="w-[280px]" onClick={() => draw(members)}>Draw now!</Button>
+          <Button className="w-[280px]" onClick={() => draw(members, familyId)}>Draw now!</Button>
         </div>
       </CardContent>
     </Card>

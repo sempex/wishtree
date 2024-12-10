@@ -9,9 +9,9 @@ async function getFamily(familyID: string) {
       FamilyMember: {
         include: {
           member: true,
-          user: true
-        }
-      }
+          user: true,
+        },
+      },
     },
   });
   return family;
@@ -22,16 +22,16 @@ async function addMember(familyID: string, username: string, userId?: string) {
     const member = await prisma.member.create({
       data: {
         name: username,
-        userId: userId
-      }
-    })
+        userId: userId,
+      },
+    });
     await prisma.familyMember.create({
       data: {
         memberId: member.id,
-        familyId: familyID
-      }
-    })
-  })
+        familyId: familyID,
+      },
+    });
+  });
 }
 
 async function memberStatus(memberId: string, familyId: string) {
@@ -64,23 +64,45 @@ function shuffle(array: User[]): User[] {
   return shuffled;
 }
 
-async function draw(members: User[]) {
+async function draw(members: User[], familyId: string) {
   let assignments: Assignment[] = [];
   let isValid = false;
 
   while (!isValid) {
     console.log("try");
-    const shuffledMembers = shuffle(members);
+    const shuffledMembers = shuffle([...members]);
     isValid = members.every(
-      (member, index) => member.username !== shuffledMembers[index].username
+      (member, index) => member.id !== shuffledMembers[index].id
     );
     if (isValid) {
       assignments = members.map((member, index) => ({
-        giver: member.username,
-        receiver: shuffledMembers[index].username,
+        giver: member.id,
+        receiver: shuffledMembers[index].id,
       }));
     }
   }
-  console.log(assignments);
+  for (const assignment of assignments) {
+    console.log(assignment)
+    console.log(familyId)
+    try {
+      await prisma.familyMember.update({
+        where: {
+          memberId_familyId: {
+            familyId: familyId,
+            memberId: assignment.receiver,
+          },
+        },
+        data: {
+          giver: {
+            connect: {
+              id: assignment.giver,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      console.error("Failed to draw secret Santa assignments", error);
+    }
+  }
 }
 export { getFamily, addMember, memberStatus, setDueDate, draw };
