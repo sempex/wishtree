@@ -20,7 +20,7 @@ export default function ControlCenter({familyId, dueDate, members}: {familyId: s
         <CardDescription>Manage your secret Santa family here!</CardDescription>
       </CardHeader>
       <CardContent className="">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <p className="font-semibold">Wish submission ending:</p>
           <DatePicker familyId={familyId} dueDate={dueDate} />
           <p className="font-semibold">Trigger the draw now!</p>
