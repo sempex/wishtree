@@ -26,7 +26,7 @@ export default async function Page({
 
   return (
     <div className="mx-4">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <p className="font-bold text-2xl">{family?.name.toLocaleUpperCase()}</p>
         <div className="flex gap-2">
           <AddMember slug={slug} />

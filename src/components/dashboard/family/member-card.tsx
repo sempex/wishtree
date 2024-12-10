@@ -20,7 +20,7 @@ export default function MemberCard({ members, memberCount }: { members: User[], 
         <CardDescription>See who joined the family already</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-6">
+        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
           {members.map((member) => {
             return (
               <div key={member.username} className="flex flex-col items-center">
