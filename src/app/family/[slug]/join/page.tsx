@@ -46,13 +46,13 @@ export default async function Page({
 
           <MemberField
             members={
-              family?.members?.map((member) => {
+              family?.FamilyMember?.map((family) => {
                 return {
-                  id: member.id,
-                  username: member.name,
-                  email: member.user?.email,
-                  userId: member.user?.id,
-                  hasSubmitted: member.hasSubmitted,
+                  id: family.member.id,
+                  username: family.member.name,
+                  email: family.user?.email,
+                  userId: family.user?.id,
+                  hasSubmitted: family.hasSubmitted,
                 };
               }) || []
             }

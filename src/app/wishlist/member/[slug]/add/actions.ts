@@ -6,33 +6,32 @@ import { toast } from "sonner";
 async function addWishes(memberId: string, wishes: string[]) {
   try {
     await prisma.$transaction(async (prisma) => {
-      const family = await prisma.family.findFirst({
+      const family = await prisma.familyMember.findFirst({
         where: {
-          members: {
-            some: {
-              id: memberId,
-            },
-          },
+          memberId: memberId,
         },
         select: {
-          id: true,
+          familyId: true,
         },
       });
       await prisma.wishList.create({
         data: {
-          familyId: family?.id || "",
+          familyId: family?.familyId || "",
           memberId: memberId,
           wishes: wishes,
         },
       });
-    });
-    await prisma.member.update({
-      where: {
-        id: memberId,
-      },
-      data: {
-        hasSubmitted: true,
-      },
+      await prisma.familyMember.update({
+        where: {
+          memberId_familyId: {
+            familyId: family?.familyId || "",
+            memberId: memberId,
+          },
+        },
+        data: {
+          hasSubmitted: true,
+        },
+      });
     });
   } catch (error) {
     console.error("Error adding wishlist:", error);

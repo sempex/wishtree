@@ -14,13 +14,13 @@ export default async function Page({
   const family = await getFamily(slug);
 
   const members =
-    family?.members?.map((member) => {
+    family?.FamilyMember.map((family) => {
       return {
-        id: member.id,
-        username: member.name,
-        email: member.user?.email,
-        userId: member.user?.id,
-        hasSubmitted: member.hasSubmitted,
+        id: family.member.id,
+        username: family.member.name,
+        email: family.user?.email,
+        userId: family.user?.id,
+        hasSubmitted: family.hasSubmitted,
       };
     }) || [];
 
@@ -47,7 +47,7 @@ export default async function Page({
         <StatusField members={members} />
         <MemberCard
           members={members}
-          memberCount={family?.members?.length || 0}
+          memberCount={family?.FamilyMember?.length || 0}
         />
       </div>
     </div>

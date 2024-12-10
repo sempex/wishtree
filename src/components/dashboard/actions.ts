@@ -17,14 +17,20 @@ async function addFamily(familyName: string) {
         where: { id: user.data.user?.id },
         select: { username: true },
       });
+      const member = await prisma.member.create({
+        data: {
+          userId: user.data.user?.id,
+          name: username?.username ?? "Unknown",
+        },
+      });
 
       await prisma.family.create({
         data: {
           name: familyName,
-          members: {
+          FamilyMember: {
             create: {
+              memberId: member.id,
               userId: user.data.user?.id,
-              name: username?.username ?? "Unknown",
             },
           },
         },
@@ -40,7 +46,7 @@ async function getFamilys() {
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
 
-  const familys = await prisma.member.findMany({
+  const familys = await prisma.familyMember.findMany({
     where: { userId: user.data.user?.id },
     include: { family: true },
   });

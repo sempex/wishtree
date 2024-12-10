@@ -13,7 +13,7 @@ export default async function FamilyCard() {
     <div>
       {familys.map((family) => {
         return (
-          <Link href={`/dashboard/family/${family.family.id}`} key={family.family.id}>
+          <Link href={`/dashboard/family/${family.familyId}`} key={family.familyId}>
             <Card>
               <CardHeader className="h-24">
                 <CardTitle>{family.family.name.toLocaleUpperCase()}</CardTitle>

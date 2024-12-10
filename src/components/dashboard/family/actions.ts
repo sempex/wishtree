@@ -6,24 +6,32 @@ async function getFamily(familyID: string) {
   const family = await prisma.family.findUnique({
     where: { id: familyID },
     include: {
-      members: {
+      FamilyMember: {
         include: {
-          user: true,
-        },
-      },
+          member: true,
+          user: true
+        }
+      }
     },
   });
   return family;
 }
 
 async function addMember(familyID: string, username: string, userId?: string) {
-  await prisma.member.create({
-    data: {
-      familyId: familyID,
-      name: username,
-      userId: userId,
-    },
-  });
+  await prisma.$transaction(async (prisma) => {
+    const member = await prisma.member.create({
+      data: {
+        name: username,
+        userId: userId
+      }
+    })
+    await prisma.familyMember.create({
+      data: {
+        memberId: member.id,
+        familyId: familyID
+      }
+    })
+  })
 }
 
 async function memberStatus(memberId: string, familyId: string) {
