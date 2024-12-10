@@ -162,6 +162,7 @@ async function sendMail({ giver, username, wishes, mail }: DrawEmailProps) {
   }
 
   console.log({ data });
+  await new Promise((r) => setTimeout(r, 500));
 }
 export {
   getFamily,
