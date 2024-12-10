@@ -18,7 +18,7 @@ export async function Navbar() {
   const user = await supabase.auth.getUser();
 
   return (
-    <div className="flex justify-between w-full px-14 py-4">
+    <div className="flex justify-between w-full px-6 md:px-14  py-4">
       <NavigationMenu className="">
         <NavigationMenuList>
           <NavigationMenuItem className="flex gap-2 items-center">

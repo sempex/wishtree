@@ -36,8 +36,8 @@ export default async function Page({
           />
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-4 mt-4">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+        <div className="col-span-1 md:col-span-2 lg:col-span-2">
           <ControlCenter
             familyId={slug}
             dueDate={family?.dueDate ?? undefined}

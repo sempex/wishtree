@@ -16,10 +16,8 @@ export default async function Page({
   const { slug } = await params;
   const family = await getFamily(slug);
 
-  console.log(family);
-
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center m-4">
       <Card>
         <CardHeader>
           <CardTitle>Who are you?</CardTitle>

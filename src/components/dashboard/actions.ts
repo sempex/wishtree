@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 import { createClient } from "@/utils/supabase/server";
-import { toast } from "sonner";
 
 async function addFamily(familyName: string) {
   "use server";
@@ -17,13 +16,20 @@ async function addFamily(familyName: string) {
         where: { id: user.data.user?.id },
         select: { username: true },
       });
-      const member = await prisma.member.create({
-        data: {
+      let member = await prisma.member.findUnique({
+        where: {
           userId: user.data.user?.id,
           name: username?.username ?? "Unknown",
         },
       });
-
+      if (!member) {
+        member = await prisma.member.create({
+          data: {
+            name: username?.username ?? "Unknown",
+            userId: user.data.user?.id,
+          },
+        });
+      }
       await prisma.family.create({
         data: {
           name: familyName,
@@ -38,7 +44,6 @@ async function addFamily(familyName: string) {
     });
   } catch (error) {
     console.error("Error adding family:", error);
-    toast("Could not add family. Please try again.");
   }
 }
 

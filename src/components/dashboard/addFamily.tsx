@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { addFamily } from "./actions";
 
-
 export default function AddFamily() {
   const [familyName, setFamilyName] = useState("");
 
@@ -28,14 +27,14 @@ export default function AddFamily() {
         <DialogHeader>
           <DialogTitle>Create a new family</DialogTitle>
           <DialogDescription>
-            Create a new family and add your memebers for secret santa
+            Create a new family and add your members for secret santa
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
             <Input
               id="familyName"
-              defaultValue="Santaclause"
+              placeholder="Santaclause"
               onChange={(e) => setFamilyName(e.target.value)}
             />
           </div>

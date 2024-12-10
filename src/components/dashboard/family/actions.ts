@@ -69,7 +69,6 @@ async function draw(members: User[], familyId: string) {
   let isValid = false;
 
   while (!isValid) {
-    console.log("try");
     const shuffledMembers = shuffle([...members]);
     isValid = members.every(
       (member, index) => member.id !== shuffledMembers[index].id
@@ -82,8 +81,6 @@ async function draw(members: User[], familyId: string) {
     }
   }
   for (const assignment of assignments) {
-    console.log(assignment)
-    console.log(familyId)
     try {
       await prisma.familyMember.update({
         where: {

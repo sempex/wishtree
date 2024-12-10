@@ -19,8 +19,6 @@ export async function login(values: z.infer<typeof FormSchemaLogin>) {
     password: values.password,
   }
 
-  console.log(data)
-
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
@@ -44,7 +42,6 @@ export async function signup(values: z.infer<typeof FormSchemaSignUp>) {
   const user = await supabase.auth.signUp(data)
 
   if (user.error) {
-    console.log(user.error)
     redirect('/error')
   }
   if (user.data?.user?.id && user.data.user.email) {

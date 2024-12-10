@@ -22,7 +22,6 @@ export default function WishForm({ memberId }: { memberId: string }) {
 
   const addWish = () => {
     setWishes([...wishes, ""]);
-    console.log(wishes);
   };
 
   const updateWish = (index: number, value: string) => {
@@ -34,7 +33,6 @@ export default function WishForm({ memberId }: { memberId: string }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addWishes(memberId, wishes);
-    console.log("Submitted wishes:", wishes);
   };
 
   return (
