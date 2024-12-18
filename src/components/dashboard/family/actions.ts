@@ -2,6 +2,7 @@
 import DrawEmail from "@/components/emails/draw";
 import prisma from "@/lib/prisma";
 import { Assignment, DrawEmailProps, User } from "@/utils/schema";
+import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
 import { z } from "zod";
 
@@ -44,6 +45,7 @@ async function addMember(familyID: string, username: string, userId?: string) {
       },
     });
   });
+  revalidatePath('/dashboard/family/[slug]');
 }
 
 async function memberStatus(memberId: string, familyId: string) {

@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { addMember } from "./actions";
 import { useState } from "react";
 
-export default function AddMember({slug}: {slug: string}) {
+export default function AddMember({ slug }: { slug: string }) {
   const [mem, addMem] = useState<string>("")
 
   return (
@@ -36,7 +36,9 @@ export default function AddMember({slug}: {slug: string}) {
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
-          <Button onClick={() => addMember(slug, mem)}>Add member</Button>
+          <DialogClose asChild>
+            <Button onClick={() => addMember(slug, mem)}>Add member</Button>
+          </DialogClose>
           <DialogClose asChild>
             <Button type="button" variant="secondary">Close</Button>
           </DialogClose>

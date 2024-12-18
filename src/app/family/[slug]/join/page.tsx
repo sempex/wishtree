@@ -15,7 +15,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const family = await getFamily(slug);
-
+  
   return (
     <div className="flex justify-center items-center m-4">
       <Card>
@@ -41,10 +41,6 @@ export default async function Page({
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          {/* {family?.members.map((member) => {
-            return <Member key={member.id} name={member.name} id={member.id} />;
-          })} */}
-
           <MemberField
             members={
               family?.FamilyMember?.map((family) => {

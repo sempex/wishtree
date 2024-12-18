@@ -40,7 +40,9 @@ export default function AddFamily() {
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
-          <Button onClick={() => addFamily(familyName)}>Create</Button>
+          <DialogClose asChild>
+            <Button onClick={() => addFamily(familyName)}>Create</Button>
+          </DialogClose>
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Close

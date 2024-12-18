@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 
 async function addFamily(familyName: string) {
   "use server";
@@ -45,6 +46,7 @@ async function addFamily(familyName: string) {
   } catch (error) {
     console.error("Error adding family:", error);
   }
+  revalidatePath("/dashboard");
 }
 
 async function getFamilys() {
