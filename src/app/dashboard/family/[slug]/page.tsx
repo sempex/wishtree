@@ -1,5 +1,5 @@
 import WishForm from "@/app/wishlist/member/[slug]/[family]/add/wish-form";
-import { getFamily, getMember } from "@/components/dashboard/family/actions";
+import { getFamily, getMember, meSubmitted } from "@/components/dashboard/family/actions";
 import AddMember from "@/components/dashboard/family/add-member";
 import ControlCenter from "@/components/dashboard/family/control-center";
 import MemberCard from "@/components/dashboard/family/member-card";
@@ -17,6 +17,8 @@ export default async function Page({
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
   const member = await getMember(user.data.user?.id ?? "");
+  const submitted = await meSubmitted(member?.id ?? "", slug);
+
 
   const members =
     family?.FamilyMember.map((family) => {
@@ -54,7 +56,7 @@ export default async function Page({
           members={members}
           memberCount={family?.FamilyMember?.length || 0}
         />
-        <WishForm familyId={slug} memberId={member?.id ?? ""} userMail={user.data.user?.email} />
+        <WishForm familyId={slug} memberId={member?.id ?? ""} userMail={user.data.user?.email} submited={submitted || false} revalidateString='/dashboard/family/[slug]'/>
       </div>
     </div>
   );

@@ -45,7 +45,7 @@ async function addMember(familyID: string, username: string, userId?: string) {
       },
     });
   });
-  revalidatePath('/dashboard/family/[slug]');
+  revalidatePath("/dashboard/family/[slug]");
 }
 
 async function memberStatus(memberId: string, familyId: string) {
@@ -166,6 +166,19 @@ async function sendMail({ giver, username, wishes, mail }: DrawEmailProps) {
   console.log({ data });
   await new Promise((r) => setTimeout(r, 500));
 }
+
+async function meSubmitted(memberId: string, familyId: string) {
+  const status = await prisma.familyMember.findUnique({
+    where: {
+      memberId_familyId: {
+        familyId,
+        memberId,
+      },
+    },
+  });
+  return status?.hasSubmitted;
+}
+
 export {
   getFamily,
   addMember,
@@ -174,4 +187,5 @@ export {
   draw,
   sendMail,
   getMember,
+  meSubmitted,
 };

@@ -1,12 +1,14 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
 async function addWishes(
   memberId: string,
   wishes: string[],
   familyId: string,
-  email: string
+  email: string,
+  revalidateString: string
 ) {
   console.log(memberId);
   try {
@@ -38,6 +40,7 @@ async function addWishes(
         email: email,
       },
     });
+    revalidatePath(revalidateString);
   } catch (error) {
     console.error("Error adding wishlist:", error);
   }
